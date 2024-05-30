@@ -41,7 +41,7 @@ class SendOrderReminders
                 'price',
                 'special_price'
             )])
-            ->get()
-            ->where('reminder_date', today());
+            ->where('reminder_date', today())
+            ->get();
     }
 }

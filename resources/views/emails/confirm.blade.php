@@ -5,7 +5,7 @@ Thank you for creating your order reminder. We have received your request and wo
 
 <x-rapidez::button class="add-to-cart" href="{{ $confirmUrl }}">Confirm Order Reminder</x-rapidez::button>
 
-After confirmation, you will receive a reminder every') <strong>@choice('week|:count weeks', $orderReminder->timespan)</strong> with the following products:
+After confirmation, you will receive a reminder every <strong>@choice('week|:count weeks', $orderReminder->timespan)</strong> with the following products:
 
 <x-rapidez-order-reminder::email.products :products="$orderReminder->products" />
 
