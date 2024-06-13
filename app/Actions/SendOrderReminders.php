@@ -16,10 +16,13 @@ class SendOrderReminders
         $orderReminders = $this->getOrderReminders();
 
         foreach ($orderReminders as $orderReminder) {
-            Mail::to($orderReminder->email)->send(new SendMailable($orderReminder, URL::signedRoute(
-                'rapidez-order-reminder.unsubscribe',
-                compact('orderReminder')
-            )));
+            Mail::to($orderReminder->email)
+                ->locale($orderReminder->locale)
+                ->send(new SendMailable($orderReminder, URL::signedRoute(
+                    'rapidez-order-reminder.unsubscribe',
+                    compact('orderReminder')
+                )
+            ));
 
             $orderReminder->update([
                 'renewal_date' => now()->next(config('rapidez-order-reminder.cron_day'))
@@ -39,7 +42,8 @@ class SendOrderReminders
                 'url_key',
                 'thumbnail',
                 'price',
-                'special_price'
+                'special_price',
+                'locale'
             )])
             ->where('reminder_date', today())
             ->get();

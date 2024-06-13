@@ -4,6 +4,7 @@ namespace Rapidez\OrderReminder\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Rapidez\Core\Models\Customer;
@@ -30,7 +31,9 @@ class OrderReminderController
 
     public function store(OrderReminderRequest $request): array
     {
-        $orderReminder = OrderReminder::create($request->safe(['email', 'timespan']));
+        $orderData = $request->safe(['email', 'timespan']);
+        $orderData['locale'] = App::getLocale();
+        $orderReminder = OrderReminder::create($orderData);
         $orderReminder->products()->sync($request->products);
 
         $orderReminder->load(['products' => fn ($query) => $query->select(
