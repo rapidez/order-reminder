@@ -9,12 +9,10 @@
             }
         },
         methods: {
-            getOrderReminders() {
-                axios.get('/api/order-reminders', {
-                    headers: { 'Authorization': `Bearer ${localStorage.token}` }
-                }).then(response => {
-                    this.orderReminders = response.data.orderReminders.sort((a, b) => Date.parse(a.reminder_date) - Date.parse(b.reminder_date));
-                })
+            async getOrderReminders() {
+                await window.rapidezAPI('get', 'order-reminders').then(response => {
+                    this.orderReminders = response.orderReminders.sort((a, b) => Date.parse(a.reminder_date) - Date.parse(b.reminder_date))
+                });
             }
         },
         created() {

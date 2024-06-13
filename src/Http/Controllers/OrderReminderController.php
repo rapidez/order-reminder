@@ -16,14 +16,19 @@ class OrderReminderController
 {
     public function index(Request $request): array
     {
-        $mask = $request->bearerToken();
-        $customer = Customer::whereHas('oAuthTokens', function ($query) use ($mask) {
-            return $query->where('token', $mask);
-        })->firstOrFail();
+        $customer = auth()->user();
 
         $orderReminders = OrderReminder::where('email', $customer->email)
             ->where('is_confirmed', true)
-            ->with(['products' => fn ($query) => $query->select('entity_id', 'name', 'url_key')])
+            ->with(['products' => fn ($query) => $query->select(
+                'entity_id',
+                'name',
+                'sku',
+                'url_key',
+                'thumbnail',
+                'price',
+                'special_price'
+            )])
             ->get();
 
         return compact('orderReminders');

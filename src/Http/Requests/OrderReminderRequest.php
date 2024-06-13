@@ -15,18 +15,15 @@ class OrderReminderRequest extends FormRequest
      */
     public function authorize()
     {
-        $bearerToken = $this->bearerToken();
-
         $customer = Customer::firstWhere('email', $this->email);
 
         if (!$customer) {
             return true;
         }
 
-        return $customer
-                ->oAuthTokens()
-                ->where('token', $bearerToken)
-                ->exists();
+        $loggedInCustomer = auth('magento-customer')->user();
+
+        return $loggedInCustomer->email === $this->email;
     }
 
     /**
