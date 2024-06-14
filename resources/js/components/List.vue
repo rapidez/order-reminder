@@ -1,5 +1,11 @@
 <script>
     export default {
+         props: {
+            limit: {
+                type: Number,
+                default: null
+            },
+         },
         render() {
             return this.$scopedSlots.default(this)
         },
@@ -10,7 +16,8 @@
         },
         methods: {
             async getOrderReminders() {
-                await window.rapidezAPI('get', 'order-reminders').then(response => {
+                const url = this.limit ? `order-reminders?limit=${this.limit}` : 'order-reminders';
+                await window.rapidezAPI('get', url).then(response => {
                     this.orderReminders = response.orderReminders.sort((a, b) => Date.parse(a.reminder_date) - Date.parse(b.reminder_date))
                 });
             }

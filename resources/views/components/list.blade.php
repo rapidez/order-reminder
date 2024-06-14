@@ -1,4 +1,5 @@
-<order-reminder-list>
+@props(['limit' => null])
+<order-reminder-list @if ($limit) v-bind:limit="{{ $limit }}" @endif>
     <div slot-scope="{ orderReminders }">
         <div v-if="orderReminders.length">
             <div v-for="orderReminder in orderReminders" class="overflow-hidden rounded-xl relative border shadow-gray mb-5 pt-5 pb-6 pl-8 pr-6 md:pr-16 not:first-child:mt-5">

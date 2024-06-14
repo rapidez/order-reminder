@@ -29,6 +29,7 @@ class OrderReminderController
                 'price',
                 'special_price'
             )])
+            ->limit($request->query('limit', null))
             ->get();
 
         return compact('orderReminders');
