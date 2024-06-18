@@ -1,11 +1,11 @@
 @props([
     'products',
-    'key' => 'entity_id',
+    'key' => 'sku',
     'edit' => false,
     'noEmail' => false
 ])
 <order-reminder-form
-    :product-ids="{{ $products.'.'.$key.' ? ['.$products.'.'.$key.'] : Object.values('.$products.').map(item => item.'.$key.')' }}"
+    :product-skus="{{ $products.'.'.$key.' ? ['.$products.'.'.$key.'] : Object.values('.$products.').map(item => item.'.$key.')' }}"
     @if($edit)
         :order-reminder="orderReminder"
     @endif
@@ -49,7 +49,7 @@
                                                     ::value="product.{{ $key }}"
                                                     ::disabled="{{ $products }}.{{ $key }} || Object.keys({{ $products }}).length == 1"
                                                 >
-                                                    @{{ product.name }}
+                                                    @{{ product.name ?? product.product_name }}
                                                 </x-rapidez::checkbox>
                                             </li>
                                         </ul>

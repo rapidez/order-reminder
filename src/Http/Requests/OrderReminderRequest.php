@@ -41,7 +41,7 @@ class OrderReminderRequest extends FormRequest
                 Rule::in(config('rapidez-order-reminder.timespans'))
             ],
             'products' => 'required|array|min:1',
-            'products.*' => 'required|exists:catalog_product_entity,entity_id'
+            'products.*' => 'required|exists:catalog_product_entity,sku'
         ];
     }
 }

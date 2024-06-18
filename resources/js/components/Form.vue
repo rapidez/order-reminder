@@ -4,7 +4,7 @@ export default {
             return this.$scopedSlots.default(this)
         },
         props: {
-            productIds: {
+            productSkus: {
                 type: Array,
                 required: false
             },
@@ -79,9 +79,9 @@ export default {
             }
         },
         watch: {
-            productIds: function(newVal, oldVal) {
+            productSkus: function(newVal, oldVal) {
                 if (!window.app.$data.loading) {
-                    this.variables.products = this.productIds
+                    this.variables.products = this.productSkus
                 }
             }
         },
@@ -89,9 +89,9 @@ export default {
             if (this.orderReminder) {
                 this.variables.email = this.orderReminder.email
                 this.variables.timespan = this.orderReminder.timespan
-                this.variables.products = Object.values(this.orderReminder.products).map(item => item.entity_id)
-            } else if (this.productIds && this.productIds.length === 1) {
-                this.variables.products.push(this.productIds[0])
+                this.variables.products = Object.values(this.orderReminder.products).map(item => item.sku)
+            } else if (this.productSkus && this.productSkus.length === 1) {
+                this.variables.products.push(this.productSkus[0])
                 this.variables.timespan = this.defaultTimespan
             }
 

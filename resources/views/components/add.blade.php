@@ -1,6 +1,6 @@
-@props(['productId', 'defaultTimespan' => 1])
+@props(['productSku', 'defaultTimespan' => 1])
 
-<order-reminder-form :product-ids="[{{ $productId }}]" :default-timespan="{{ $defaultTimespan }}" v-cloak>
+<order-reminder-form :product-skus="[{{ $productSku }}]" :default-timespan="{{ $defaultTimespan }}" v-cloak>
     <div id="order-reminder" slot-scope="{ variables, submitForm }">
         <div class="text-neutral text-16 font-medium mb-4">
             @lang('Set your order reminder:')
