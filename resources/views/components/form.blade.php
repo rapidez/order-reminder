@@ -2,13 +2,15 @@
     'products',
     'key' => 'sku',
     'edit' => false,
-    'noEmail' => false
+    'noEmail' => false,
+    'defaultTimespan' => 1
 ])
 <order-reminder-form
     :product-skus="{{ $products.'.'.$key.' ? ['.$products.'.'.$key.'] : Object.values('.$products.').map(item => item.'.$key.')' }}"
     @if($edit)
         :order-reminder="orderReminder"
     @endif
+    :default-timespan="{{ $defaultTimespan }}"
     v-cloak
 >
     <div slot-scope="{ toggleForm, show, variables, submitForm, submitDelete }">
