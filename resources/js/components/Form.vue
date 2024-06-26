@@ -92,9 +92,11 @@ export default {
                 this.variables.products = Object.values(this.orderReminder.products).map(item => item.sku)
             } else if (this.productSkus && this.productSkus.length === 1) {
                 this.variables.products.push(this.productSkus[0])
-                this.variables.timespan = this.defaultTimespan
             }
 
+            if (!this.orderReminder && this.productSkus.length >= 1) {
+                this.variables.timespan = this.defaultTimespan
+            }
         }
     }
 </script>

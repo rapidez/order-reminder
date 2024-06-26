@@ -5,12 +5,14 @@ namespace Rapidez\OrderReminder\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Rapidez\Core\Models\Customer;
 use Rapidez\OrderReminder\Http\Requests\OrderReminderRequest;
 use Rapidez\OrderReminder\Mail\ConfirmMailable;
 use Rapidez\OrderReminder\Models\OrderReminder;
+
 
 class OrderReminderController
 {
@@ -20,15 +22,18 @@ class OrderReminderController
 
         $orderReminders = OrderReminder::where('email', $customer->email)
             ->where('is_confirmed', true)
-            ->with(['products' => fn ($query) => $query->select(
-                'entity_id',
-                'name',
-                'sku',
-                'url_key',
-                'thumbnail',
-                'price',
-                'special_price'
-            )])
+            ->with(['products' => function ($query) {
+                $query->select(
+                    'entity_id',
+                    'name',
+                    'sku',
+                    'url_key',
+                    'thumbnail',
+                    'price',
+                    'special_price'
+                );
+            }])
+            ->orderBy(DB::raw('DATE_ADD(renewal_date, INTERVAL timespan WEEK)'))
             ->limit($request->query('limit', null))
             ->get();
 

@@ -2,12 +2,13 @@
 
 namespace Rapidez\OrderReminder\Actions;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Rapidez\OrderReminder\Events\SendOrderRemindersEvent;
 use Rapidez\OrderReminder\Mail\SendMailable;
 use Rapidez\OrderReminder\Models\OrderReminder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\URL;
 
 class SendOrderReminders
 {
@@ -44,7 +45,7 @@ class SendOrderReminders
                 'price',
                 'special_price'
             )])
-            ->get()
-            ->where('reminder_date', today());
+            ->where(DB::raw('DATE_ADD(renewal_date, INTERVAL timespan WEEK)'), '=', today())
+            ->get();
     }
 }
