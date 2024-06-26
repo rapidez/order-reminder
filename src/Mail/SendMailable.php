@@ -1,6 +1,6 @@
 <?php
 
-namespace Rapidez\OrderReminder\Mail\OrderReminder;
+namespace Rapidez\OrderReminder\Mail;
 
 use Rapidez\OrderReminder\Models\OrderReminder;
 use Illuminate\Bus\Queueable;

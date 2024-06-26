@@ -5,6 +5,7 @@ namespace Rapidez\OrderReminder;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Rapidez\OrderReminder\Http\ViewComposers\ConfigComposer;
+use Rapidez\OrderReminder\Console\Commands\SendOrderRemindersCommand;
 
 class OrderReminderServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,7 @@ class OrderReminderServiceProvider extends ServiceProvider
             ->bootViews()
             ->bootMigrations()
             ->bootComposers()
+            ->bootCommands()
             ->bootPublishables();
     }
 
@@ -56,6 +58,13 @@ class OrderReminderServiceProvider extends ServiceProvider
     protected function bootComposers(): static
     {
         View::composer('rapidez::layouts.app', ConfigComposer::class);
+
+        return $this;
+    }
+
+    protected function bootCommands(): static
+    {
+        $this->commands([SendOrderRemindersCommand::class]);
 
         return $this;
     }

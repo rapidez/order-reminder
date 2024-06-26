@@ -3,7 +3,7 @@
 namespace Rapidez\OrderReminder\Actions;
 
 use Rapidez\OrderReminder\Events\SendOrderRemindersEvent;
-use Rapidez\OrderReminder\Mail\OrderReminder\SendMailable;
+use Rapidez\OrderReminder\Mail\SendMailable;
 use Rapidez\OrderReminder\Models\OrderReminder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Mail;
@@ -42,10 +42,9 @@ class SendOrderReminders
                 'url_key',
                 'thumbnail',
                 'price',
-                'special_price',
-                'locale'
+                'special_price'
             )])
-            ->where('reminder_date', today())
-            ->get();
+            ->get()
+            ->where('reminder_date', today());
     }
 }
