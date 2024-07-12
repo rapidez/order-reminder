@@ -79,7 +79,7 @@ class OrderReminderController
             'is_confirmed' => true
         ]);
 
-        return redirect('/')->with(['notification' => [
+        $notification = [
             'message' => __(
                 'Your order reminder has been confirmed! You will receive a reminder with the selected products every :weeks. You will receive the first email on :reminder_date in your inbox.', [
                     'weeks' => trans_choice('week|:count weeks', $orderReminder->timespan),
@@ -88,7 +88,12 @@ class OrderReminderController
             ),
             'type' => 'success',
             'show' => true
-        ]]);
+        ];
+
+        $notifications = session()->get('notifications', []);
+        $notifications[] = $notification;
+
+        return redirect('/')->with(['notifications' => $notifications]);
     }
 
     public function destroy(OrderReminder $orderReminder)
@@ -100,10 +105,15 @@ class OrderReminderController
     {
         $orderReminder->delete();
 
-        return redirect('/')->with(['notification' => [
+        $notification = [
             'message' => __('Your order reminder has been deleted. You will no longer receive reminders for this.'),
             'type' => 'success',
             'show' => true
-        ]]);
+        ];
+
+        $notifications = session()->get('notifications', []);
+        $notifications[] = $notification;
+
+        return redirect('/')->with(['notifications' => $notifications]);
     }
 }

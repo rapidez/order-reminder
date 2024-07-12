@@ -3,3 +3,4 @@
 
 Vue.component('order-reminder-form', () => import('./components/Form.vue'))
 Vue.component('order-reminder-list', () => import('./components/List.vue'))
+Vue.component('order-reminder-add-to-cart', () => import('./components/AddMultipleToCart.vue'))

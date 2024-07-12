@@ -9,6 +9,7 @@ return [
         'update' => 'Your order reminder has been updated! You will now receive a reminder with the selected products every %1. The next email will arrive in your inbox on %2.',
         'delete' => 'Your order reminder has been deleted',
         'week' => ['week','weeks'],
-        'product' => ['Product','Products']
+        'product' => ['Product','Products'],
+        'added' => 'Products successfully added to cart'
     ]
 ];

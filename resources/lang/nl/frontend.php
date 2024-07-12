@@ -9,6 +9,7 @@ return [
         'update' => 'Jouw bestelherinnering is gewijzigd! Je krijgt nu elke %1 een herinnering met de gekozen producten. De eerstvolgende e-mail ontvang je op %2 in je inbox.',
         'delete' => 'Je bestelherinnering is verwijderd',
         'week' => ['week','weken'],
-        'product' => ['Product','Producten']
+        'product' => ['Product','Producten'],
+        'added' => 'De producten zijn succesvol toegevoegd aan de winkelwagen'
     ]
 ];
