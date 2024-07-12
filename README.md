@@ -35,3 +35,9 @@ This makes it possible to add one or more products to an order reminder.
 
 ## Order Reminder Confirmation and Management
 When an order reminder is added, a confirmation email will be sent to the provided email address. Once the order reminder is approved, it will appear in the account center at the URL `/account/order-reminders`. Here, users can view, edit and delete the order reminders.
+
+## Add to Cart
+A Vue component has been added to allow customers to add products from the order reminder email to the cart in one click. To enable this, add the following to the cart page:
+```html
+    <order-reminder-add-to-cart></order-reminder-add-to-cart>
+```
