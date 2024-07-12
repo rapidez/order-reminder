@@ -11,15 +11,12 @@ export default {
         addFromSearchParams() {
             const skus = Turbo.navigator.location.searchParams.get('skus') ? Turbo.navigator.location.searchParams.get('skus').split(',') : null
             if (skus) {
-                console.log(skus);
                 this.multipleAddToCart(skus)
                 Turbo.navigator.location.searchParams.delete('skus')
                 Turbo.navigator.history.replace(Turbo.navigator.location)
             }
         },
         async multipleAddToCart(skus) {
-            console.log('multipleAddToCart')
-
             if (!mask.value) {
                 await refreshMask()
             }
