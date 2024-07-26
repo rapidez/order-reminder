@@ -42,7 +42,7 @@ class OrderReminder extends Model
     public function reminderDate(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->renewal_date->addWeeks($this->timespan)
+            get: fn () => $this->renewal_date?->addWeeks($this->timespan)
         );
     }
 }
