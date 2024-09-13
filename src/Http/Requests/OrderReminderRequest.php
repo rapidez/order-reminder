@@ -3,7 +3,9 @@
 namespace Rapidez\OrderReminder\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\UnauthorizedException;
 use Rapidez\Core\Models\Customer;
 
 class OrderReminderRequest extends FormRequest
@@ -15,15 +17,13 @@ class OrderReminderRequest extends FormRequest
      */
     public function authorize()
     {
-        $customer = Customer::firstWhere('email', $this->email);
-
-        if (!$customer) {
+        if (!Customer::firstWhere('email', $this->email)) {
             return true;
         }
 
-        $loggedInCustomer = auth('magento-customer')->user();
+        abort_if(auth('magento-customer')->user()?->email !== $this->email, 403);
 
-        return $loggedInCustomer->email === $this->email;
+        return true;
     }
 
     /**
