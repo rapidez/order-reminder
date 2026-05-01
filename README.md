@@ -1,38 +1,43 @@
-# Rapidez :package_name_without_prefix
-<!--delete-->
-This repository can be used as template for a new Rapidez package.
-
-- Click on "Use this template" on the top of this Github repo page
-- Run `php ./configure.php`
-
-Credits to [`spatie/package-skeleton-laravel`](https://github.com/spatie/package-skeleton-laravel) for the inpiration for this template.
-
-Keep in mind that if you contribute to this template; it should work for official and unofficial packages!
-- `rapidez/something`
-- `someone/rapidez-something`
-<!--/delete-->
-:package_description
+# Rapidez Order Reminder
+This package provides functionality within Rapidez to create order reminders for customers, prompting them to reorder products after a specified period.
 
 ## Installation
-
 ```
-composer require :vendor_slug/:package_slug
+composer require rapidez/order-reminder
 ```
 
 ## Configuration
-
 You can publish the config with:
 ```
-php artisan vendor:publish --tag=rapidez-:package_slug_without_prefix-config
+php artisan vendor:publish --tag=rapidez-order-reminder-config
 ```
 
 ## Views
-
 You can publish the views with:
 ```
-php artisan vendor:publish --tag=rapidez-:package_slug_without_prefix-views
+php artisan vendor:publish --tag=rapidez-order-reminder-views
 ```
 
-## License
+## Order Reminder Forms
+### Product Detail Page
+To display the order reminder form on a product page, add the following to the product page, for example in `resources/views/vendor/rapidez/product/overview`:
+```html
+<x-rapidez-order-reminder::add :productSku="$product->sku" :defaultTimespan="2" />
+```
+This example adds the form with a default timespan of 2 automatically selected.
 
-GNU General Public License v3. Please see [License File](LICENSE) for more information.
+### Order Detail Page
+To create an order reminder from an order, you can add the following to the order template, for example in `resources/views/vendor/rapidez/account/order.blade.php`:
+```html
+<x-rapidez-order-reminder::form products="Object.values(data.customer.orders.items[0].items)" key="product_sku" default-timespan="2" no-email />
+```
+This makes it possible to add one or more products to an order reminder.
+
+## Order Reminder Confirmation and Management
+When an order reminder is added, a confirmation email will be sent to the provided email address. Once the order reminder is approved, it will appear in the account center at the URL `/account/order-reminders`. Here, users can view, edit and delete the order reminders.
+
+## Add to Cart
+A Vue component has been added to allow customers to add products from the order reminder email to the cart in one click. To enable this, add the following to the cart page:
+```html
+    <order-reminder-add-to-cart></order-reminder-add-to-cart>
+```
