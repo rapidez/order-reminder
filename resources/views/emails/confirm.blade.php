@@ -3,7 +3,7 @@
 
 @lang('Thank you for creating your order reminder. We have received your request and would like to let you know that we have registered your request. To activate the order reminder, simply click on the button below:')
 
-<x-rapidez::button.conversion class="add-to-cart" target="_blank" href="{{ $confirmUrl }}">@lang('Confirm Order Reminder')</x-rapidez::conversion>
+<x-rapidez::button.conversion class="add-to-cart" target="_blank" href="{{ $confirmUrl }}">@lang('Confirm Order Reminder')</x-rapidez::button.conversion>
 
 @lang('After confirmation, you will receive a reminder every <strong>:interval</strong> with the following products:', ['interval' => trans_choice('week|:count weeks', $orderReminder->timespan)])
 

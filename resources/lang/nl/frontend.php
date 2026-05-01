@@ -8,8 +8,10 @@ return [
         'confirm_delete' => 'Weet je zeker dat je de bestelherinnering wilt verwijderen?',
         'update' => 'Jouw bestelherinnering is gewijzigd! Je krijgt nu elke %1 een herinnering met de gekozen producten. De eerstvolgende e-mail ontvang je op %2 in je inbox.',
         'delete' => 'Je bestelherinnering is verwijderd',
-        'week' => ['week','weken'],
-        'product' => ['Product','Producten'],
+        'week' => 'week',
+        'weeks' => 'weken',
+        'product' => 'Product',
+        'products' => 'Producten',
         'added' => 'De producten zijn succesvol toegevoegd aan de winkelwagen'
     ]
 ];
