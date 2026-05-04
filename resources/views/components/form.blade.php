@@ -12,8 +12,9 @@
     @endif
     :default-timespan="{{ $defaultTimespan }}"
     v-cloak
+    v-slot="{ toggleForm, show, variables, submitForm, submitDelete }"
 >
-    <div slot-scope="{ toggleForm, show, variables, submitForm, submitDelete }">
+    <div>
         <div v-if="show" class="relative z-slideover">
             <div class="fixed inset-0 z-slideover-overlay pointer-events-auto bg-backdrop transition-opacity"></div>
             <div class="fixed inset-0 flex items-center z-slideover-sidebar mx-4 sm:mx-auto">
@@ -78,9 +79,9 @@
                                         <x-rapidez::button.conversion
                                             type="submit"
                                             class="group ml-4 md:ml-7"
-                                            ::disabled="$root.loading"
+                                            ::disabled="loading"
                                         >
-                                            <span v-if="!$root.loading" class="flex items-center gap-x-2.5">
+                                            <span v-if="!loading" class="flex items-center gap-x-2.5">
                                                 <x-heroicon-o-bell class="size-3.5 group-hover:animate-wiggle origin-[50%_25%]" />
                                                 @lang('Save reminder')
                                             </span>

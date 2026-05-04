@@ -36,15 +36,7 @@ class SendOrderReminders
     public function getOrderReminders(): Collection
     {
         return OrderReminder::where('is_confirmed', true)
-            ->with(['products' => fn ($query) => $query->select(
-                'entity_id',
-                'name',
-                'sku',
-                'url_key',
-                'thumbnail',
-                'price',
-                'special_price'
-            )])
+            ->with('products')
             ->where(DB::raw('DATE_ADD(renewal_date, INTERVAL timespan WEEK)'), '=', today())
             ->get();
     }

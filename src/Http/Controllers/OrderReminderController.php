@@ -22,17 +22,7 @@ class OrderReminderController
 
         $orderReminders = OrderReminder::where('email', $customer->email)
             ->where('is_confirmed', true)
-            ->with(['products' => function ($query) {
-                $query->select(
-                    'entity_id',
-                    'name',
-                    'sku',
-                    'url_key',
-                    'thumbnail',
-                    'price',
-                    'special_price'
-                );
-            }])
+            ->with('products')
             ->orderBy(DB::raw('DATE_ADD(renewal_date, INTERVAL timespan WEEK)'))
             ->limit($request->query('limit', null))
             ->get();
@@ -47,15 +37,7 @@ class OrderReminderController
         $orderReminder = OrderReminder::create($orderData);
         $orderReminder->products()->sync($request->products);
 
-        $orderReminder->load(['products' => fn ($query) => $query->select(
-            'entity_id',
-            'name',
-            'sku',
-            'url_key',
-            'thumbnail',
-            'price',
-            'special_price'
-        )]);
+        $orderReminder->load('products');
 
         Mail::to($request->email)->send(new ConfirmMailable($orderReminder, URL::signedRoute(
             'rapidez-order-reminder.confirm',

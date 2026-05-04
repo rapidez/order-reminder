@@ -1,7 +1,10 @@
 <script>
+import { cart } from 'Vendor/rapidez/core/resources/js/stores/useCart.js'
+import { user } from 'Vendor/rapidez/core/resources/js/stores/useUser.js'
+
 export default {
         render() {
-            return this.$scopedSlots.default(this)
+            return this?.$slots?.default(this)
         },
         props: {
             productSkus: {
@@ -23,7 +26,7 @@ export default {
             return {
                 show: false,
                 variables: {
-                    email: this.$root.guestEmail,
+                    email: cart.value?.email || user.value?.email || '',
                     timespan: 1,
                     products: []
                 }
@@ -51,7 +54,7 @@ export default {
                                 .toLocaleDateString(window.navigator.language,
                                     { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }))
                         , 'success')
-                        window.app.$emit('refreshOrderReminders')
+                        window.$emit('refreshOrderReminders')
                     } else {
                         Notify(window.config.translations.order_reminder.add, 'success')
                     }
@@ -85,7 +88,7 @@ export default {
                     ).then(() => {
                         this.toggleForm()
                         Notify(window.config.translations.order_reminder.delete, 'success')
-                        window.app.$emit('refreshOrderReminders')
+                        window.$emit('refreshOrderReminders')
                         this.$el.dispatchEvent(
                             new CustomEvent('deleteOrderReminder', {
                                 bubbles: true
@@ -97,7 +100,7 @@ export default {
         },
         watch: {
             productSkus: function(newVal, oldVal) {
-                if (!window.app.$data.loading) {
+                if (!window.app.config.globalProperties.loading?.value) {
                     this.variables.products = this.productSkus
                 }
             }
