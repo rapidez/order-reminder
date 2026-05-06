@@ -1,7 +1,7 @@
 @props(['productSku', 'defaultTimespan' => 1])
 
-<order-reminder-form :product-skus="['{{ $productSku }}']" :default-timespan="{{ $defaultTimespan }}" v-cloak>
-    <div id="order-reminder" slot-scope="{ variables, submitForm }">
+<order-reminder-form :product-skus="['{{ $productSku }}']" :default-timespan="{{ $defaultTimespan }}" v-cloak v-slot="{ variables, submitForm }">
+    <div id="order-reminder">
         <div class="text text-base font-medium mb-4">
             @lang('Set your order reminder:')
             <template v-if="variables.timespan > 1">

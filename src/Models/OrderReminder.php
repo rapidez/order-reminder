@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Rapidez\Core\Models\Customer;
 use Rapidez\Core\Models\Product;
-use Rapidez\Core\Models\Scopes\Product\WithProductStockScope;
 
 class OrderReminder extends Model
 {
@@ -37,7 +36,7 @@ class OrderReminder extends Model
     {
         return $this->belongsToMany(Product::class, 'order_reminder_product', 'order_reminder_id', 'product_sku', 'id', 'sku')
             ->withoutGlobalScopes()
-            ->withGlobalScope(WithProductStockScope::class, new WithProductStockScope);
+            ->with('stock');
     }
 
     public function reminderDate(): Attribute

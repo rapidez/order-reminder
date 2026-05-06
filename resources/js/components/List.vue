@@ -7,7 +7,7 @@
             },
          },
         render() {
-            return this.$scopedSlots.default(this)
+            return this?.$slots?.default(this)
         },
         data() {
             return {
@@ -27,12 +27,12 @@
             }
         },
         created() {
-            window.app.$on('refreshOrderReminders', () => {
+            window.$on('refreshOrderReminders', () => {
                 this.getOrderReminders()
             })
         },
         mounted() {
-            window.app.$emit('refreshOrderReminders')
+            window.$emit('refreshOrderReminders')
         }
     }
 </script>
