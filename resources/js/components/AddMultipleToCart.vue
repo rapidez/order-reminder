@@ -1,10 +1,8 @@
 <script>
 import { GraphQLError } from 'Vendor/rapidez/core/resources/js/fetch'
 import { mask, refreshMask } from 'Vendor/rapidez/core/resources/js/stores/useMask'
-import InteractWithUser from 'Vendor/rapidez/core/resources/js/components/User/mixins/InteractWithUser'
 
 export default {
-    mixins: [InteractWithUser],
     render() {},
 
     methods: {
@@ -51,7 +49,7 @@ export default {
                             Notify(error.message, 'error')
                         })
                     } else {
-                        await this.updateCart({}, response)
+                        await window.app.config.globalProperties.updateCart([], response)
                         Notify(window.config.translations.order_reminder.added, 'success');
                     }
                 } catch (error) {
