@@ -50,7 +50,7 @@ export default {
                         })
                     } else {
                         await window.app.config.globalProperties.updateCart([], response)
-                        Notify(window.config.translations.order_reminder.added, 'success');
+                        Notify(window.config.order_reminder.translations.added, 'success');
                     }
                 } catch (error) {
                     Notify(error.message, 'error')

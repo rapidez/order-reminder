@@ -9,6 +9,6 @@ class ConfigComposer
 {
     public function compose(View $view)
     {
-        Config::set('frontend.translations.order_reminder', __('rapidez-order-reminder::frontend.order_reminder'));
+        Config::set('frontend.order_reminder.translations', __('rapidez-order-reminder::frontend.order_reminder'));
     }
 }

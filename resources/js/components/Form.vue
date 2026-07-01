@@ -48,15 +48,15 @@ export default {
                 ).then(response => {
                     this.toggleForm()
                     if (this.orderReminder) {
-                        Notify(window.config.translations.order_reminder.update
-                            .replace('%1', `${response.orderReminder.timespan} ${window.config.translations.order_reminder.week[+(response.orderReminder.timespan !== 1)]}`)
+                        Notify(window.config.order_reminder.translations.update
+                            .replace('%1', `${response.orderReminder.timespan} ${window.config.order_reminder.translations.week[+(response.orderReminder.timespan !== 1)]}`)
                             .replace('%2', new Date(response.orderReminder.reminder_date)
                                 .toLocaleDateString(window.navigator.language,
                                     { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }))
                         , 'success')
                         window.$emit('refreshOrderReminders')
                     } else {
-                        Notify(window.config.translations.order_reminder.add, 'success')
+                        Notify(window.config.order_reminder.translations.add, 'success')
                     }
 
                     if ('dataLayer' in window) {
@@ -73,21 +73,21 @@ export default {
                 }).catch(response => {
                     this.toggleForm()
                     if (response?.response?.status === 403) {
-                        Notify(window.config.translations.order_reminder.unauthorized, 'error')
+                        Notify(window.config.order_reminder.translations.unauthorized, 'error')
                     } else {
-                        Notify(window.config.translations.order_reminder.error, 'error')
+                        Notify(window.config.order_reminder.translations.error, 'error')
                     }
                 })
             },
             submitDelete() {
-                if (confirm(window.config.translations.order_reminder.confirm_delete)) {
+                if (confirm(window.config.order_reminder.translations.confirm_delete)) {
                     window.rapidezAPI(
                         'delete',
                         `order-reminders/${ this.orderReminder.id }`,
                         {}
                     ).then(() => {
                         this.toggleForm()
-                        Notify(window.config.translations.order_reminder.delete, 'success')
+                        Notify(window.config.order_reminder.translations.delete, 'success')
                         window.$emit('refreshOrderReminders')
                         this.$el.dispatchEvent(
                             new CustomEvent('deleteOrderReminder', {

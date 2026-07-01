@@ -6,7 +6,7 @@
                 <div class="absolute bg-primary w-1 h-full top-0 left-0"></div>
                 <div class="flex max-sm:flex-col">
                     <div class="w-full sm:w-52 text-muted font-medium text-base">
-                        @{{ orderReminder.products.length > 1 ? window.config.translations.order_reminder.products : window.config.translations.order_reminder.product }}:
+                        @{{ orderReminder.products.length > 1 ? window.config.order_reminder.translations.products : window.config.order_reminder.translations.product }}:
                     </div>
                     <div class="flex flex-col md:flex-1">
                         <a class="text-primary font-medium text-base" v-for="product in orderReminder.products" :href="product.url">
@@ -23,7 +23,7 @@
                 <div class="flex max-sm:flex-col mt-2.5">
                     <div class="w-full sm:w-52 text-muted font-medium text-base">@lang('Reminder every'):</div>
                     <div class="md:flex-1 text font-medium text-base">
-                        @{{ orderReminder.timespan }} @{{ orderReminder.timespan > 1 ? window.config.translations.order_reminder.weeks : window.config.translations.order_reminder.week }}
+                        @{{ orderReminder.timespan }} @{{ orderReminder.timespan > 1 ? window.config.order_reminder.translations.weeks : window.config.order_reminder.translations.week }}
                     </div>
                 </div>
                 <x-rapidez-order-reminder::form products="orderReminder.products" edit />
